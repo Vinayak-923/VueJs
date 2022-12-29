@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>v-for exercise (nested v-for)</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script type="module">
+            import Vue from 'https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.esm.browser.min.js';
+
+            // EXERCISE: Display details in a table of persons (S.Number, Name, Emails)
+            new Vue({
+                el: '#root',
+                data: {
+                    persons: [
+                        {
+                            id: 1,
+                            name: 'John Doe',
+                            emails: [
+                                'john@gmail.com',
+                                'john@fynd.com'
+                            ]
+                        },
+                        {
+                            id: 2,
+                            name: 'Jane Doe',
+                            emails: [
+                                'jane@gmail.com',
+                                'jane@fynd.com',
+                                'jane@yahoo.com'
+                            ]
+                        },
+                        {
+                            id: 3,
+                            name: 'Mark Smith',
+                            emails: [
+                                'mark@gmail.com',
+                                'mark@fynd.com'
+                            ]
+                        }
+                    ]
+                },
+                methods: {
+                    
+                },
+                template: `
+                    <div class="container my-4">
+                        <table class="table table-striped table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Name</th>
+                                    <th>Emails</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="( person, idx ) in persons" :key="person.id">
+                                    <td>{{idx + 1}}</td>
+                                    <td>{{person.name}}</td>
+                                    <td>
+                                        <ol>
+                                            <li v-for="email in person.emails" :key="email">{{email}}</li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `
+            })
+        </script>
+    </body>
+</html>
