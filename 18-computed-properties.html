@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Computed properties (computed state/derived state)</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script type="module">
+            import Vue from 'https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.esm.browser.min.js';
+
+            new Vue({
+                el: '#root',
+                data: {
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    city: 'Mumbai'
+                },
+                computed: { // computed properties (derived state) are defined using methods
+                    // fullName property will be re-computed whenever the state variables it uses, change
+                    // i.e. in this case - when firstName / lastName changes
+                    // it WILL NOT be called when city changes
+                    fullName() {
+                        console.log( 'recomputed' );
+                        // Explore accessor methods, Proxy class of JS
+                        return `${this.firstName} ${this.lastName}`;
+                    }
+                },
+                methods: {
+                    changeCity( city ) {
+                        this.city = city;
+                    },
+                    getFullName() {
+                        console.log( 'getFullName called' );
+                        return `${this.firstName} ${this.lastName}`;
+                    }
+                },
+                template: `
+                    <section>
+                        <input
+                            type="text"
+                            v-model="firstName"
+                            placeholder="Your first name"
+                        />
+                        <input
+                            type="text"
+                            v-model="lastName"
+                            placeholder="Your last name"
+                        />
+                        <div>
+                            Your full name (computed property): {{fullName}}
+                        </div>
+                        <div>
+                            Your full name (using method call): {{getFullName()}}
+                        </div>
+                        City: {{city}}
+                        <button @click="changeCity( 'New Delhi' )">Change city to New Delhi</button>
+                    </section>
+                `
+            })
+        </script>
+    </body>
+</html>
